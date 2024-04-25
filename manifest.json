@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Your App Name",
+  "version": "1.0",
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "webview",
+    "https://example.com/*",  // Add permissions for the web pages you want to block ads on
+    "activeTab", // If you need to access active tab information
+    "webRequest",
+    "webRequestBlocking",
+    "storage"
+  ],
+  "minimum_chrome_version": "23",
+  "icons": {
+    "16": "icon_16.png",
+    "48": "icon_48.png",
+    "128": "icon_128.png"
+  },
+  "chrome_url_overrides" : {
+    "newtab": "index.html"
+  },
+  "webview": {
+    "partitions": [{
+      "name": "trusted",
+      "accessible_resources": ["*"]
+    }]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://example.com/*"], // Matches the webpage displayed in the webview
+      "js": ["content.js"] // Path to your content script
+    }
+  ]
+}
